@@ -24,8 +24,7 @@ public class ProductSvcImpl implements ProductSvc {
 
     @Override
     public ProductDomain findProductById(String id) {
-        ProductDomain productDomain = productRepository.findOne(id);
-        return productDomain;
+        return productRepository.findOne(id);
     }
 
     @Override
@@ -33,6 +32,7 @@ public class ProductSvcImpl implements ProductSvc {
         Select select = QueryBuilder.select()
                 .from("product");
         select.where(QueryBuilder.eq("sku", searchProduct.getSku()));
+        select.allowFiltering();
         List<ProductDomain> domainList = cassandraTemplate.select(select, ProductDomain.class);
         Objects.requireNonNull(domainList);
         return domainList.get(0);
@@ -45,7 +45,12 @@ public class ProductSvcImpl implements ProductSvc {
     }
 
     @Override
-    public ProductDomain delete(ProductDomain searchProduct) {
-        return null;
+    public Boolean delete(String id) {
+        if (productRepository.exists(id)) {
+            productRepository.delete(id);
+            return Boolean.TRUE;
+        }else {
+            return Boolean.FALSE;
+        }
     }
 }

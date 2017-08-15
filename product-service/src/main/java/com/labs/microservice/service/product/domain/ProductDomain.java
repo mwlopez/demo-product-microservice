@@ -4,8 +4,6 @@ import org.springframework.data.cassandra.mapping.Column;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
-import java.util.UUID;
-
 @Table(value = "product")
 public class ProductDomain {
 
@@ -16,13 +14,16 @@ public class ProductDomain {
     @Column(value = "productname")
     private String productName;
 
+    private String imagepath;
+
     public ProductDomain() {
     }
 
-    public ProductDomain(String id, String sku, String productName) {
+    public ProductDomain(String id, String sku, String productName, String imagepath) {
         this.id = id;
         this.sku = sku;
         this.productName = productName;
+        this.imagepath = imagepath;
     }
 
     public String getId() {
@@ -49,12 +50,21 @@ public class ProductDomain {
         this.productName = productName;
     }
 
+    public String getImagepath() {
+        return imagepath;
+    }
+
+    public void setImagepath(String imagepath) {
+        this.imagepath = imagepath;
+    }
+
     @Override
     public String toString() {
         return "ProductDomain{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", sku='" + sku + '\'' +
                 ", productName='" + productName + '\'' +
+                ", imagepath='" + imagepath + '\'' +
                 '}';
     }
 }

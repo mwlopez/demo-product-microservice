@@ -7,5 +7,5 @@ public interface ProductSvc {
     ProductDomain findProductById(String id);
     ProductDomain findProduct(ProductDomain searchProduct);
     ProductDomain save(ProductDomain searchProduct);
-    ProductDomain delete(ProductDomain searchProduct);
+    Boolean delete(String id);
 }
