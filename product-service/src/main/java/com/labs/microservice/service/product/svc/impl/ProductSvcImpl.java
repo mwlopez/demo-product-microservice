@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ProductSvcImpl implements ProductSvc {
@@ -23,19 +21,25 @@ public class ProductSvcImpl implements ProductSvc {
     private CassandraOperations cassandraTemplate;
 
     @Override
-    public ProductDomain findProductById(String id) {
-        return productRepository.findOne(id);
+    public Collection<ProductDomain> findAll() {
+        return new ArrayList<>();
     }
 
     @Override
-    public ProductDomain findProduct(ProductDomain searchProduct) {
-        Select select = QueryBuilder.select()
-                .from("product");
-        select.where(QueryBuilder.eq("sku", searchProduct.getSku()));
-        select.allowFiltering();
-        List<ProductDomain> domainList = cassandraTemplate.select(select, ProductDomain.class);
-        Objects.requireNonNull(domainList);
+    public Collection<ProductDomain> findByType(ProductDomain productDomain) {
+        List<ProductDomain> domainList = getProductDomains(productDomain);
+        return domainList;
+    }
+
+    @Override
+    public ProductDomain findOne(ProductDomain productDomain) {
+        List<ProductDomain> domainList = getProductDomains(productDomain);
         return domainList.get(0);
+    }
+
+    @Override
+    public ProductDomain findById(String s) {
+        return productRepository.findOne(s);
     }
 
     @Override
@@ -45,12 +49,28 @@ public class ProductSvcImpl implements ProductSvc {
     }
 
     @Override
+    public Boolean delete(ProductDomain productDomain) {
+        return null;
+    }
+
+    @Override
     public Boolean delete(String id) {
         if (productRepository.exists(id)) {
             productRepository.delete(id);
             return Boolean.TRUE;
-        }else {
+        } else {
             return Boolean.FALSE;
         }
+    }
+
+
+    private List<ProductDomain> getProductDomains(ProductDomain productDomain) {
+        Select select = QueryBuilder.select()
+                .from("product");
+        select.where(QueryBuilder.eq("sku", productDomain.getSku()));
+        select.allowFiltering();
+        List<ProductDomain> domainList = cassandraTemplate.select(select, ProductDomain.class);
+        Objects.requireNonNull(domainList);
+        return domainList;
     }
 }
