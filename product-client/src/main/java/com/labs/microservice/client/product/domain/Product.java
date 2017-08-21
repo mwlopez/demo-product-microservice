@@ -1,6 +1,8 @@
 package com.labs.microservice.client.product.domain;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     String id;
     String sku;
     String productName;
