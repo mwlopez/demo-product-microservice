@@ -2,8 +2,16 @@ spring:
   application:
     name: zuul-gateway
 server:
-  port: 9090
+  port:  ${host.instance.port:9090}
 zuul:
   routes:
-    product:
-      url: http://localhost:9494
+    product-client:
+      url: http://product-client:9494
+ribbon:
+  eureka:
+    enabled: true
+  #prefix: /api
+eureka:
+  client:
+    service-url:
+      defaultZone:  ${eureka_url:http://eureka-server:8761/eureka/}

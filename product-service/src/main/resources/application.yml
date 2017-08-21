@@ -1,5 +1,5 @@
 server:
-  port: 9595
+  port: ${host.instance.port:9595}
 spring:
   application:
     name: product-service
@@ -7,13 +7,14 @@ spring:
     cassandra:
       port: 9042
       keyspace-name: ecommerce
+      contact-points: 10.0.1.78
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
+      defaultZone:  ${eureka_url:http://eureka-server:8761/eureka/}
     healthcheck:
       enabled: true
     lease:

@@ -19,12 +19,17 @@ public class ProductService {
 
     @HystrixCommand(fallbackMethod = "getProductFallback")
     public Product getProduct(String id){
-        ResponseEntity<Product> exchange = restTemplate.exchange("http://localhost:9595/product/{id}", HttpMethod.GET, null, new ParameterizedTypeReference<Product>() {
+        System.out.println("hostName --" + System.getenv().get("HOSTNAME"));
+        System.out.println("dentro del servicio " + id);
+        ResponseEntity<Product> exchange = restTemplate.exchange("http://product-service:9595/product/{id}",
+                HttpMethod.GET, null, new ParameterizedTypeReference<Product>() {
         }, id);
         return  exchange.getBody();
     }
 
     public Product getProductFallback(String id){
+        System.out.println("hostName --" + System.getenv().get("HOSTNAME"));
+        System.out.println("error " + id);
         return new Product(id, "N/A", "N/A");
     }
 }

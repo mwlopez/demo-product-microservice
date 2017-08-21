@@ -1,5 +1,5 @@
 server:
-  port: 9494
+  port: ${host.instance.port:9494}
 spring:
   application:
     name: product-client
@@ -9,7 +9,7 @@ eureka:
     leaseExpirationDurationInSeconds: 2
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
+      defaultZone:  ${eureka_url:http://eureka-server:8761/eureka/}
     healthcheck:
       enabled: true
     lease:

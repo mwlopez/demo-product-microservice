@@ -1,0 +1,47 @@
+version: "2.1"
+services:
+  product-service:
+    build: product-service
+    restart: always
+    ports:
+      - 9595:9595
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+  product-client:
+    build: product-client
+    restart: always
+    expose:
+      - 7001
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+  zuul-gateway:
+    build: zuul-gateway
+    restart: always
+    ports:
+      - 9090:9090
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+  hystrix-dashboard:
+    build: hystrix-circuite-breaker
+    restart: always
+    ports:
+      - 9191:9191
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+  eureka-server:
+    build: eureka-server
+    restart: always
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"

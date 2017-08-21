@@ -19,7 +19,7 @@ public class ProductServiceApplicationTests {
 		ProductDomain p = new ProductDomain();
 		p.setSku("12345");
 
-		ProductDomain product = productSvc.findProduct(p);
+		ProductDomain product = productSvc.findOne(p);
 		System.out.println(product.toString());
 	}
 
