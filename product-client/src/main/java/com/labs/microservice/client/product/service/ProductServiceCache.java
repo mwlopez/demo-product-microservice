@@ -1,8 +1,9 @@
 package com.labs.microservice.client.product.service;
 
 import com.google.gson.Gson;
-import com.hazelcast.config.Config;
-import com.hazelcast.core.Hazelcast;
+import com.hazelcast.client.HazelcastClient;
+import com.hazelcast.client.config.ClientConfig;
+import com.hazelcast.config.GroupConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.labs.microservice.client.product.domain.Product;
 
@@ -12,8 +13,11 @@ public class ProductServiceCache {
     ConcurrentMap<String, String> map;
 
     public  ProductServiceCache(){
-        Config config = new Config();
-        HazelcastInstance h = Hazelcast.newHazelcastInstance(config);
+        ClientConfig clientConfig = new ClientConfig();
+        clientConfig.addAddress("192.168.0.103");
+
+        clientConfig.setGroupConfig(new GroupConfig("dev","dev-pass"));
+        HazelcastInstance h = HazelcastClient.newHazelcastClient(clientConfig);
         ConcurrentMap<String, String> map = h.getMap("product-cache");
         this.map = map;
     }

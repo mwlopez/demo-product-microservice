@@ -14,6 +14,7 @@ public class ProductController {
 
     @RequestMapping("/product/{id}")
     public ProductDomain getProductById(@PathVariable() String id){
+        System.out.println("desde el servicio");
         return productSvc.findById(id);
     }
 

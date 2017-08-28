@@ -3,7 +3,7 @@ services:
   product-service:
     build: product-service
     ports:
-      - 9595:9595
+      - "9595"
     logging:
       options:
         max-size: "10m"
@@ -11,7 +11,7 @@ services:
   product-client:
     build: product-client
     expose:
-      - 7001
+      - "9494"
     logging:
       options:
         max-size: "10m"
@@ -19,7 +19,7 @@ services:
   zuul-gateway:
     build: zuul-gateway
     ports:
-      - 9090:9090
+      - "9090"
     logging:
       options:
         max-size: "10m"
@@ -27,7 +27,7 @@ services:
   hystrix-dashboard:
     build: hystrix-circuite-breaker
     ports:
-      - 9191:9191
+      - "9191"
     logging:
       options:
         max-size: "10m"
@@ -35,7 +35,7 @@ services:
   eureka-server:
     build: eureka-server
     ports:
-      - 8761:8761
+      - "8761:8761"
     logging:
       options:
         max-size: "10m"
@@ -43,4 +43,4 @@ services:
   hazelcast-server:
     image: 'hazelcast/hazelcast:latest'
     ports:
-      - '5701:5701'
+      - "5701:5701"

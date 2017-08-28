@@ -11,27 +11,25 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ProductService {
 
-    private final ProductServiceCache productServiceCache;
 
     private final RestTemplate restTemplate;
 
-    public ProductService(RestTemplate rest, ProductServiceCache productServiceCache){
+    public ProductService(RestTemplate rest){
         this.restTemplate = rest;
-        this.productServiceCache = productServiceCache;
     }
 
     @HystrixCommand(fallbackMethod = "getProductFallback")
     public Product getProduct(String id){
-        Product product = this.productServiceCache.getProduct(id);
-        if (product == null) {
+//        Product product = this.productServiceCache.getProduct(id);
+//        if (product == null) {
             ResponseEntity<Product> exchange = restTemplate.exchange("http://product-service:9595/product/{id}",
                     HttpMethod.GET, null, new ParameterizedTypeReference<Product>() {
                     }, id);
-            product = exchange.getBody();
-            productServiceCache.saveProduct(product);
+            Product product = exchange.getBody();
+//            productServiceCache.saveProduct(product);
             return product;
-        }
-        return product;
+//        }
+//        return product;
     }
 
     public Product getProductFallback(String id){

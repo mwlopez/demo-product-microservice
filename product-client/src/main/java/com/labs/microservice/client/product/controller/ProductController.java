@@ -16,6 +16,7 @@ public class ProductController {
 
     @RequestMapping("/product/{id}")
     public Product getProduct(@PathVariable String id){
+        System.out.println(" product -!");
        return productService.getProduct(id);
     }
 
