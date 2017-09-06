@@ -1,5 +1,6 @@
 package com.labs.microservice.client.product;
 
+import com.labs.microservice.client.product.service.ProductServiceCache;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -20,10 +21,10 @@ public class ProductClientApplication {
 		return builder.build();
 	}
 
-//	@Bean
-//	public ProductServiceCache serviceCache(){
-//		return new ProductServiceCache();
-//	}
+	@Bean
+	public ProductServiceCache serviceCache(){
+		return new ProductServiceCache();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProductClientApplication.class, args);

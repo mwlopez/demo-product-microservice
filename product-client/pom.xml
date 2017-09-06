@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Dalston.SR2</spring-cloud.version>
+		<spring-cloud.version>Dalston.SR3</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -41,11 +41,13 @@
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
 
+
 		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-client</artifactId>
-			<version>3.9-EA</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
+
+
 
 		<dependency>
 			<groupId>com.hazelcast</groupId>
