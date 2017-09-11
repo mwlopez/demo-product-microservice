@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("labclient")
 public class ConfigProperty {
     private Boolean cacheEnable = false;
+    private String cacheServerIP = "localhost";
 
     public Boolean getCacheEnable() {
         return cacheEnable;
@@ -14,5 +15,13 @@ public class ConfigProperty {
 
     public void setCacheEnable(Boolean cacheEnable) {
         this.cacheEnable = cacheEnable;
+    }
+
+    public String getCacheServerIP() {
+        return cacheServerIP;
+    }
+
+    public void setCacheServerIP(String cacheServerIP) {
+        this.cacheServerIP = cacheServerIP;
     }
 }

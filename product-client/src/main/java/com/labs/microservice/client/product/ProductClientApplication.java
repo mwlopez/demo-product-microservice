@@ -1,6 +1,8 @@
 package com.labs.microservice.client.product;
 
+import com.labs.microservice.client.product.config.ConfigProperty;
 import com.labs.microservice.client.product.service.ProductServiceCache;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -15,6 +17,9 @@ import org.springframework.web.client.RestTemplate;
 @EnableCircuitBreaker
 public class ProductClientApplication {
 
+	@Autowired
+	ConfigProperty configProperty;
+
 	@Bean
 	@LoadBalanced
 	public RestTemplate rest(RestTemplateBuilder builder){
@@ -23,7 +28,7 @@ public class ProductClientApplication {
 
 	@Bean
 	public ProductServiceCache serviceCache(){
-		return new ProductServiceCache();
+		return new ProductServiceCache(configProperty.getCacheServerIP());
 	}
 
 	public static void main(String[] args) {

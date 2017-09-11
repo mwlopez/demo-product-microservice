@@ -6,6 +6,13 @@
       "name": "labclient.enableCache",
       "description": "Indicates whether the cache is enabled or not.",
       "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.labs.microservice.client.product.config.ConfigProperty",
+      "defaultValue": "localhost",
+      "name": "laclient.cacheServerIP",
+      "description": "Server ip address",
+      "type": "java.lang.String"
     }
   ]
 }

@@ -8,14 +8,18 @@ import com.hazelcast.core.HazelcastInstance;
 import com.labs.microservice.client.product.domain.Product;
 
 import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Logger;
 
 public class ProductServiceCache {
+    private  final Logger logger = Logger.getLogger(ProductServiceCache.class.getName());
+
+
     ConcurrentMap<String, String> map;
 
-    public  ProductServiceCache(){
+    public ProductServiceCache(String ip){
         ClientConfig clientConfig = new ClientConfig();
         ClientNetworkConfig networkConfig = clientConfig.getNetworkConfig();
-        networkConfig.addAddress("192.168.0.103");
+        networkConfig.addAddress(ip);
 
         HazelcastInstance h = HazelcastClient.newHazelcastClient(clientConfig);
         ConcurrentMap<String, String> map = h.getMap("product-cache");
